@@ -20,7 +20,7 @@ from PIL import Image
 
 @api_view(['POST'])
 def predict(request):
-    model = load_model(r'F:\full-stack-python\graduation\graduation_project\src\ml\models\ergot.h5')
+    # model = load_model(r'F:\full-stack-python\graduation\graduation_project\src\ml\models\ergot.h5')
     
     model_path = os.path.join(os.getcwd(), 'ml', 'models', 'ergot.h5')
     model = load_model(model_path)

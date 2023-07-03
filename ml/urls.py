@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import PredictImage,predict,FruitClassificationAPI
+from .views import predict,FruitClassificationAPI
 
 urlpatterns = [
     path('classify-wheat/', predict, name='predict_image'),

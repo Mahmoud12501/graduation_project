@@ -16,35 +16,14 @@ from keras.applications.imagenet_utils import preprocess_input
 from PIL import Image
 
 
-class PredictImage(APIView):
-    def post(self, request, format=None):
-        # Load the trained model
-        model = load_model(r'F:\full-stack-python\graduation\graduation_project\src/model(1).h5')
-
-        # Get the image data from the request
-        img_data = request.FILES['image']
-
-        # Preprocess the image
-        img = image.load_img(img_data, target_size=(224, 224))
-        x = image.img_to_array(img)
-        x = np.expand_dims(x, axis=0)
-        x = preprocess_input(x)
-
-        # Make the prediction
-        predictions = model.predict(x)
-        results = {
-            'class_1': str(predictions[0][0]),
-            'class_2': str(predictions[0][1]),
-            'class_3': str(predictions[0][2]),
-        }
-
-        # Return the results as a JSON response
-        return Response(results)
 
 
 @api_view(['POST'])
 def predict(request):
     model = load_model(r'F:\full-stack-python\graduation\graduation_project\src\ml\models\ergot.h5')
+    
+    model_path = os.path.join(os.getcwd(), 'ml', 'models', 'ergot.h5')
+    model = load_model(model_path)
     
     image_file = request.FILES['image']
     image = Image.open(image_file).convert('RGB')
@@ -63,8 +42,9 @@ def predict(request):
     return Response({'result': result})
 
 
-model = load_model(r'F:\full-stack-python\graduation\graduation_project\src\ml\models\dataset.h5')
-
+# model = load_model(r'F:\full-stack-python\graduation\graduation_project\src\ml\models\dataset.h5')
+model_path = os.path.join(os.getcwd(), 'ml', 'models', 'dataset.h5')
+model = load_model(model_path)
 class FruitClassificationAPI(APIView):
     def post(self, request):
         image_file = request.FILES['image']
